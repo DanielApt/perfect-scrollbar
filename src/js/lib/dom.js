@@ -3,9 +3,12 @@
  */
 'use strict';
 
-exports.e = function (tagName, className) {
+exports.e = function (tagName, className, innerHTML) {
   var element = document.createElement(tagName);
   element.className = className;
+  if (innerHTML) {
+    element.innerHTML = innerHTML;
+  }
   return element;
 };
 

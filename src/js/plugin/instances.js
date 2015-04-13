@@ -13,7 +13,10 @@ var d = require('../lib/dom')
 var instances = {};
 
 function Instance(element) {
-  var i = this;
+  var i = this
+    , origContent = element.innerHTML;
+
+  element.innerHTML = ''; // all content will be placed inside i.content
 
   cls.add(element, 'ps-container');
 
@@ -29,6 +32,7 @@ function Instance(element) {
 
   i.scrollbarXRail = d.appendTo(d.e('div', 'ps-scrollbar-x-rail'), element);
   i.scrollbarX = d.appendTo(d.e('div', 'ps-scrollbar-x'), i.scrollbarXRail);
+  i.content = d.appendTo(d.e('div', 'ps-content', origContent), element);
   i.scrollbarXActive = null;
   i.scrollbarXWidth = null;
   i.scrollbarXLeft = null;
