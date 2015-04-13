@@ -18,7 +18,7 @@ function bindKeyboardHandler(element, i) {
 
   var shouldPrevent = false;
   function shouldPreventDefault(deltaX, deltaY) {
-    var scrollTop = element.scrollTop;
+    var scrollTop = i.scrollTop;
     if (deltaX === 0) {
       if (!i.scrollbarYActive) {
         return false;
@@ -28,7 +28,7 @@ function bindKeyboardHandler(element, i) {
       }
     }
 
-    var scrollLeft = element.scrollLeft;
+    var scrollLeft = i.scrollLeft;
     if (deltaY === 0) {
       if (!i.scrollbarXActive) {
         return false;
@@ -92,7 +92,7 @@ function bindKeyboardHandler(element, i) {
       break;
     case 36: // home
       if (e.ctrlKey) {
-        deltaY = element.scrollTop;
+        deltaY = i.scrollTop;
       } else {
         deltaY = i.containerHeight;
       }
@@ -101,8 +101,8 @@ function bindKeyboardHandler(element, i) {
       return;
     }
 
-    element.scrollTop = element.scrollTop - deltaY;
-    element.scrollLeft = element.scrollLeft + deltaX;
+    i.scrollTop = i.scrollTop - deltaY;
+    i.scrollLeft = i.scrollLeft + deltaX;
     updateGeometry(element);
 
     shouldPrevent = shouldPreventDefault(deltaX, deltaY);
