@@ -26,7 +26,7 @@ function bindClickRailHandler(element, i) {
       positionRatio = 1;
     }
 
-    element.scrollTop = (i.contentHeight - i.containerHeight) * positionRatio;
+    i.scrollTop = (i.contentHeight - i.containerHeight) * positionRatio;
     updateGeometry(element);
   });
 
@@ -44,7 +44,7 @@ function bindClickRailHandler(element, i) {
       positionRatio = 1;
     }
 
-    element.scrollLeft = (i.contentWidth - i.containerWidth) * positionRatio;
+    i.scrollLeft = (i.contentWidth - i.containerWidth) * positionRatio;
     updateGeometry(element);
   });
 }
