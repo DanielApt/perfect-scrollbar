@@ -28,8 +28,8 @@ function bindSelectionHandler(element, i) {
           return;
         }
 
-        element.scrollTop = element.scrollTop + scrollDiff.top;
-        element.scrollLeft = element.scrollLeft + scrollDiff.left;
+        i.scrollTop = i.scrollTop + scrollDiff.top;
+        i.scrollLeft = i.scrollLeft + scrollDiff.left;
         updateGeometry(element);
       }, 50); // every .1 sec
     }
