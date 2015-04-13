@@ -22,6 +22,7 @@ $ps-bar-hover: #999;
 @mixin scrollbar-rail-default {
   display: none;
   position: absolute; /* please don't change 'position' */
+  z-index: 2;
   @include border-radius(4px);
   opacity: 0;
   @include transition(background-color .2s linear, opacity .2s linear);
@@ -70,6 +71,11 @@ $ps-bar-hover: #999;
   }
 
   @include in-scrolling;
+
+  >.ps-content {
+    position: relative;
+    z-index:1;
+  }
 
   >.ps-scrollbar-x-rail {
     @include scrollbar-rail-default;
