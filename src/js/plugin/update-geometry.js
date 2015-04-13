@@ -23,21 +23,21 @@ function updateCss(element, i) {
   if (i.isRtl) {
     xRailOffset.left = i.scrollLeft + i.containerWidth - i.contentWidth;
   } else {
-    xRailOffset.left = i.scrollLeft;
+    xRailOffset.left = 0;
   }
   if (i.isScrollbarXUsingBottom) {
-    xRailOffset.bottom = i.scrollbarXBottom - i.scrollTop;
+    xRailOffset.bottom = i.scrollbarXBottom;
   } else {
-    xRailOffset.top = i.scrollbarXTop + i.scrollTop;
+    xRailOffset.top = i.scrollbarXTop;
   }
   d.css(i.scrollbarXRail, xRailOffset);
 
-  var yRailOffset = {top: i.scrollTop, height: i.railYHeight};
+  var yRailOffset = {top: 0, height: i.railYHeight};
   if (i.isScrollbarYUsingRight) {
     if (i.isRtl) {
-      yRailOffset.right = i.contentWidth - i.scrollLeft - i.scrollbarYRight - i.scrollbarYOuterWidth;
+      yRailOffset.right = i.contentWidth - i.scrollbarYOuterWidth;
     } else {
-      yRailOffset.right = i.scrollbarYRight - i.scrollLeft;
+      yRailOffset.right = i.scrollbarYRight;
     }
   } else {
     if (i.isRtl) {
@@ -50,8 +50,7 @@ function updateCss(element, i) {
 
   d.css(i.scrollbarX, {left: i.scrollbarXLeft, width: i.scrollbarXWidth - i.railBorderXWidth});
   d.css(i.scrollbarY, {top: i.scrollbarYTop, height: i.scrollbarYHeight - i.railBorderYWidth});
-  element.scrollLeft = i.scrollLeft;
-  element.scrollTop = i.scrollTop;
+  d.css(i.content, {left: i.scrollLeft * -1, top: i.scrollTop * -1});
 }
 
 module.exports = function (element) {
@@ -86,7 +85,7 @@ module.exports = function (element) {
     i.scrollbarXActive = true;
     i.railXWidth = i.containerWidth - i.railXMarginWidth;
     i.scrollbarXWidth = getThumbSize(i, h.toInt(i.railXWidth * i.containerWidth / i.contentWidth));
-    i.scrollbarXLeft = h.toInt(element.scrollLeft * (i.railXWidth - i.scrollbarXWidth) / (i.contentWidth - i.containerWidth));
+    i.scrollbarXLeft = h.toInt(i.scrollLeft * (i.railXWidth - i.scrollbarXWidth) / (i.contentWidth - i.containerWidth));
   } else {
     i.scrollbarXActive = false;
     i.scrollbarXWidth = 0;
@@ -98,7 +97,7 @@ module.exports = function (element) {
     i.scrollbarYActive = true;
     i.railYHeight = i.containerHeight - i.railYMarginHeight;
     i.scrollbarYHeight = getThumbSize(i, h.toInt(i.railYHeight * i.containerHeight / i.contentHeight));
-    i.scrollbarYTop = h.toInt(element.scrollTop * (i.railYHeight - i.scrollbarYHeight) / (i.contentHeight - i.containerHeight));
+    i.scrollbarYTop = h.toInt(i.scrollTop * (i.railYHeight - i.scrollbarYHeight) / (i.contentHeight - i.containerHeight));
   } else {
     i.scrollbarYActive = false;
     i.scrollbarYHeight = 0;
