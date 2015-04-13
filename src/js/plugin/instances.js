@@ -4,6 +4,7 @@
 'use strict';
 
 var d = require('../lib/dom')
+  , cls = require('../lib/class')
   , defaultSettings = require('./default-setting')
   , EventManager = require('../lib/event-manager')
   , guid = require('../lib/guid')
@@ -13,6 +14,8 @@ var instances = {};
 
 function Instance(element) {
   var i = this;
+
+  cls.add(element, 'ps-container');
 
   i.settings = h.clone(defaultSettings);
   i.containerWidth = null;

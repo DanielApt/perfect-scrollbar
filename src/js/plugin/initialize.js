@@ -3,8 +3,7 @@
  */
 'use strict';
 
-var cls = require('../lib/class')
-  , h = require('../lib/helper')
+var h = require('../lib/helper')
   , instances = require('./instances')
   , updateGeometry = require('./update-geometry');
 
@@ -19,8 +18,6 @@ var clickRailHandler = require('./handler/click-rail')
 
 module.exports = function (element, userSettings) {
   userSettings = typeof userSettings === 'object' ? userSettings : {};
-
-  cls.add(element, 'ps-container');
 
   // Create a plugin instance.
   var i = instances.add(element);
