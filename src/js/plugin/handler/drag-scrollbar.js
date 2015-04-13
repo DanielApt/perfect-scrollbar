@@ -25,7 +25,7 @@ function bindMouseScrollXHandler(element, i) {
     }
 
     var scrollLeft = h.toInt(i.scrollbarXLeft * (i.contentWidth - i.containerWidth) / (i.containerWidth - i.scrollbarXWidth));
-    element.scrollLeft = scrollLeft;
+    i.scrollLeft = scrollLeft;
   }
 
   var mouseMoveHandler = function (e) {
@@ -70,7 +70,7 @@ function bindMouseScrollYHandler(element, i) {
     }
 
     var scrollTop = h.toInt(i.scrollbarYTop * (i.contentHeight - i.containerHeight) / (i.containerHeight - i.scrollbarYHeight));
-    element.scrollTop = scrollTop;
+    i.scrollTop = scrollTop;
   }
 
   var mouseMoveHandler = function (e) {
