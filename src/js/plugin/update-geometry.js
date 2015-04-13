@@ -21,35 +21,37 @@ function getThumbSize(i, thumbSize) {
 function updateCss(element, i) {
   var xRailOffset = {width: i.railXWidth};
   if (i.isRtl) {
-    xRailOffset.left = element.scrollLeft + i.containerWidth - i.contentWidth;
+    xRailOffset.left = i.scrollLeft + i.containerWidth - i.contentWidth;
   } else {
-    xRailOffset.left = element.scrollLeft;
+    xRailOffset.left = i.scrollLeft;
   }
   if (i.isScrollbarXUsingBottom) {
-    xRailOffset.bottom = i.scrollbarXBottom - element.scrollTop;
+    xRailOffset.bottom = i.scrollbarXBottom - i.scrollTop;
   } else {
-    xRailOffset.top = i.scrollbarXTop + element.scrollTop;
+    xRailOffset.top = i.scrollbarXTop + i.scrollTop;
   }
   d.css(i.scrollbarXRail, xRailOffset);
 
-  var yRailOffset = {top: element.scrollTop, height: i.railYHeight};
+  var yRailOffset = {top: i.scrollTop, height: i.railYHeight};
   if (i.isScrollbarYUsingRight) {
     if (i.isRtl) {
-      yRailOffset.right = i.contentWidth - element.scrollLeft - i.scrollbarYRight - i.scrollbarYOuterWidth;
+      yRailOffset.right = i.contentWidth - i.scrollLeft - i.scrollbarYRight - i.scrollbarYOuterWidth;
     } else {
-      yRailOffset.right = i.scrollbarYRight - element.scrollLeft;
+      yRailOffset.right = i.scrollbarYRight - i.scrollLeft;
     }
   } else {
     if (i.isRtl) {
-      yRailOffset.left = element.scrollLeft + i.containerWidth * 2 - i.contentWidth - i.scrollbarYLeft - i.scrollbarYOuterWidth;
+      yRailOffset.left = i.scrollLeft + i.containerWidth * 2 - i.contentWidth - i.scrollbarYLeft - i.scrollbarYOuterWidth;
     } else {
-      yRailOffset.left = i.scrollbarYLeft + element.scrollLeft;
+      yRailOffset.left = i.scrollbarYLeft + i.scrollLeft;
     }
   }
   d.css(i.scrollbarYRail, yRailOffset);
 
   d.css(i.scrollbarX, {left: i.scrollbarXLeft, width: i.scrollbarXWidth - i.railBorderXWidth});
   d.css(i.scrollbarY, {top: i.scrollbarYTop, height: i.scrollbarYHeight - i.railBorderYWidth});
+  element.scrollLeft = i.scrollLeft;
+  element.scrollTop = i.scrollTop;
 }
 
 module.exports = function (element) {
@@ -57,14 +59,27 @@ module.exports = function (element) {
 
   i.containerWidth = element.clientWidth;
   i.containerHeight = element.clientHeight;
-  i.contentWidth = element.scrollWidth;
-  i.contentHeight = element.scrollHeight;
+  i.contentWidth = i.content.clientWidth;
+  i.contentHeight = i.content.clientHeight;
 
   if (!element.contains(i.scrollbarXRail)) {
     d.appendTo(i.scrollbarXRail, element);
   }
   if (!element.contains(i.scrollbarYRail)) {
     d.appendTo(i.scrollbarYRail, element);
+  }
+
+  if (i.scrollLeft < 0) {
+    i.scrollLeft = 0;
+  }
+  if (i.scrollLeft > i.contentWidth - i.containerWidth) {
+    i.scrollLeft = i.contentWidth - i.containerWidth;
+  }
+  if (i.scrollTop < 0) {
+    i.scrollTop = 0;
+  }
+  if (i.scrollTop > i.contentHeight - i.containerHeight) {
+    i.scrollTop = i.contentHeight - i.containerHeight;
   }
 
   if (!i.settings.suppressScrollX && i.containerWidth + i.settings.scrollXMarginOffset < i.contentWidth) {
@@ -76,7 +91,7 @@ module.exports = function (element) {
     i.scrollbarXActive = false;
     i.scrollbarXWidth = 0;
     i.scrollbarXLeft = 0;
-    element.scrollLeft = 0;
+    i.scrollLeft = 0;
   }
 
   if (!i.settings.suppressScrollY && i.containerHeight + i.settings.scrollYMarginOffset < i.contentHeight) {
@@ -88,7 +103,7 @@ module.exports = function (element) {
     i.scrollbarYActive = false;
     i.scrollbarYHeight = 0;
     i.scrollbarYTop = 0;
-    element.scrollTop = 0;
+    i.scrollTop = 0;
   }
 
   if (i.scrollbarXLeft >= i.railXWidth - i.scrollbarXWidth) {

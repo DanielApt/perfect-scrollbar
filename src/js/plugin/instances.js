@@ -25,6 +25,8 @@ function Instance(element) {
   i.containerHeight = null;
   i.contentWidth = null;
   i.contentHeight = null;
+  i.scrollLeft = 0;
+  i.scrollTop = 0;
 
   i.isRtl = d.css(element, 'direction') === "rtl";
   i.event = new EventManager();

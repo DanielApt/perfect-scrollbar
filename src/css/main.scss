@@ -75,6 +75,7 @@ $ps-bar-hover: #999;
   >.ps-content {
     position: relative;
     z-index:1;
+    display:inline-block;
   }
 
   >.ps-scrollbar-x-rail {
